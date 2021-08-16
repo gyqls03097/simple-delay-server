@@ -11,6 +11,7 @@ import java.util.ArrayList;
 import java.util.stream.Collectors;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -19,7 +20,7 @@ public class SimpleController {
 
   private static final String ADDRESS_NAVER = "https://m.naver.com/";
 
-  @GetMapping("/api/v1/authorization")
+  @PostMapping("/api/v1/authorization")
   public ResponseEntity<AuthResponse> authorization(@RequestBody AuthRequest request) {
 
     AuthResponse body = new AuthResponse();
@@ -28,7 +29,7 @@ public class SimpleController {
     return ResponseEntity.ok(body);
   }
 
-  @GetMapping("/api/v1/urlCheck")
+  @PostMapping("/api/v1/urlCheck")
   public ResponseEntity<CheckUrlResponse> checkUrl(@RequestBody CheckUrlRequest request) {
 
     CheckUrlResponse body = new CheckUrlResponse();
