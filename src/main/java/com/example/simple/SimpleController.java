@@ -8,6 +8,7 @@ import com.example.simple.data.CheckUrlResponse;
 import com.example.simple.data.UrlCheckData;
 import com.example.simple.data.WhiteUrlResponse;
 import java.util.ArrayList;
+import java.util.List;
 import java.util.stream.Collectors;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -32,11 +33,16 @@ public class SimpleController {
   @PostMapping("/api/v1/urlCheck")
   public ResponseEntity<CheckUrlResponse> checkUrl(@RequestBody CheckUrlRequest request) {
 
+    List<String> urls = request.getUrls();
+    if (!urls.isEmpty()) {
+      System.out.println("url : " + urls.get(0));
+    }
+
     CheckUrlResponse body = new CheckUrlResponse();
-    if (request.getUrls().isEmpty() || !request.getUrls().get(0).startsWith(ADDRESS_NAVER)) {
+    if (urls.isEmpty() || !urls.get(0).startsWith(ADDRESS_NAVER)) {
       body.setResult(new ArrayList<>());
     } else {
-      body.setResult(request.getUrls().stream()
+      body.setResult(urls.stream()
           .map(url -> UrlCheckData.builder()
               .tm(System.currentTimeMillis())
               .url(url)
